@@ -110,7 +110,9 @@ esac
 # VERSION CHECK
 #######################
 if [ "${fzf_version}" = "${fzf_installed_version}" ]; then
-  code_yel "[WARN] Already using latest version. Exiting."
+  printf '%s\n' "Installed Verision: ${fzf_installed_version}"
+  printf '%s\n' "Latest Version: ${fzf_version}"
+  code_yel "[INFO] Already using latest version. Exiting."
   exit 0
 else
   printf '%s\n' "Installed Verision: ${fzf_installed_version}"
