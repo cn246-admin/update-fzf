@@ -4,9 +4,7 @@
 # Author: Chuck Nemeth
 # https://github.com/junegunn/fzf
 
-#######################
 # VARIABLES
-#######################
 bin_dir="${HOME}/.local/bin"
 src_dir="${HOME}/.local/src"
 man_dir="${HOME}/.local/man/man1"
@@ -24,9 +22,7 @@ fzf_version="$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest
               awk -F': ' '/tag_name/ { gsub(/\"|\,/,"",$2); print $2 }')"
 
 
-#######################
 # FUNCTIONS
-#######################
 # green output
 code_grn () {
   tput setaf 2
@@ -49,9 +45,7 @@ code_yel () {
 }
 
 
-#######################
 # OS CHECK
-#######################
 archi=$(uname -sm)
 case "$archi" in
   Darwin\ arm64)
@@ -93,9 +87,7 @@ esac
 fzf_url="https://github.com/junegunn/fzf/releases/download/${fzf_version}/${fzf_archive}"
 
 
-#######################
 # PATH CHECK
-#######################
 case :$PATH: in
   *:"${bin_dir}":*)  ;;  # do nothing
   *)
@@ -106,9 +98,7 @@ case :$PATH: in
 esac
 
 
-#######################
 # VERSION CHECK
-#######################
 if [ "${fzf_version}" = "${fzf_installed_version}" ]; then
   printf '%s\n' "Installed Verision: ${fzf_installed_version}"
   printf '%s\n' "Latest Version: ${fzf_version}"
@@ -120,9 +110,7 @@ else
 fi
 
 
-#######################
 # PREPARE
-#######################
 if [ ! -d "${bin_dir}" ]; then
   mkdir -p "${bin_dir}"
 fi
@@ -136,9 +124,7 @@ if [ ! -d "${man_dir}" ]; then
 fi
 
 
-#######################
 # DOWNLOAD
-#######################
 cd "${src_dir}" || exit
 
 # Clone or update the repository
@@ -177,9 +163,7 @@ ln -sf "${src_dir}/fzf/man/man1/${fzf_man}" "${man_dir}"
 ln -sf "${src_dir}/fzf/man/man1/${fzf_tmux_man}" "${man_dir}"
 
 
-#######################
 # VERSION CHECK
-#######################
 code_grn "Done!"
 code_grn "Installed Version: $(fzf --version | cut -d' ' -f 1)"
 
