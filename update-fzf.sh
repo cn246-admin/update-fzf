@@ -21,7 +21,6 @@ fi
 fzf_version="$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | \
               awk -F': ' '/tag_name/ { gsub(/\"|\,/,"",$2); print $2 }')"
 
-
 # colored output
 code_grn () { tput setaf 2; printf '%s\n' "${1}"; tput sgr0; }
 code_red () { tput setaf 1; printf '%s\n' "${1}"; tput sgr0; }
