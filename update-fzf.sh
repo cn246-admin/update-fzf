@@ -22,27 +22,10 @@ fzf_version="$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest
               awk -F': ' '/tag_name/ { gsub(/\"|\,/,"",$2); print $2 }')"
 
 
-# FUNCTIONS
-# green output
-code_grn () {
-  tput setaf 2
-  printf '%s\n' "${1}"
-  tput sgr0
-}
-
-# red output
-code_red () {
-  tput setaf 1
-  printf '%s\n' "${1}"
-  tput sgr0
-}
-
-# yellow output
-code_yel () {
-  tput setaf 3
-  printf '%s\n' "${1}"
-  tput sgr0
-}
+# colored output
+code_grn () { tput setaf 2; printf '%s\n' "${1}"; tput sgr0; }
+code_red () { tput setaf 1; printf '%s\n' "${1}"; tput sgr0; }
+code_yel () { tput setaf 3; printf '%s\n' "${1}"; tput sgr0; }
 
 
 # OS CHECK
@@ -111,17 +94,9 @@ fi
 
 
 # PREPARE
-if [ ! -d "${bin_dir}" ]; then
-  mkdir -p "${bin_dir}"
-fi
-
-if [ ! -d "${src_dir}" ]; then
-  mkdir -p "${src_dir}"
-fi
-
-if [ ! -d "${man_dir}" ]; then
-  mkdir -p "${man_dir}"
-fi
+[ ! -d "${bin_dir}" ] && mkdir -p "${bin_dir}"
+[ ! -d "${src_dir}" ] && mkdir -p "${src_dir}"
+[ ! -d "${man_dir}" ] && mkdir -p "${man_dir}"
 
 
 # DOWNLOAD
