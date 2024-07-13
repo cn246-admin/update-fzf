@@ -31,34 +31,34 @@ code_yel () { tput setaf 3; printf '%s\n' "${1}"; tput sgr0; }
 archi=$(uname -sm)
 case "$archi" in
   Darwin\ arm64)
-    fzf_archive="fzf-${fzf_version}-darwin_arm64.zip"
+    fzf_archive="fzf-${fzf_version##v}-darwin_arm64.zip"
     ;;
   Darwin\ x86_64)
-    fzf_archive="fzf-${fzf_version}-darwin_amd64.zip"
+    fzf_archive="fzf-${fzf_version##v}-darwin_amd64.zip"
     ;;
   Linux\ armv5*)
-    fzf_archive="fzf-${fzf_version}-linux_armv5.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_armv5.tar.gz"
     ;;
   Linux\ armv6*)
-    fzf_archive="fzf-${fzf_version}-linux_armv6.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_armv6.tar.gz"
     ;;
   Linux\ armv7*)
-    fzf_archive="fzf-${fzf_version}-linux_armv7.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_armv7.tar.gz"
     ;;
   Linux\ armv8*)
-    fzf_archive="fzf-${fzf_version}-linux_arm64.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_arm64.tar.gz"
     ;;
   Linux\ aarch64*)
-    fzf_archive="fzf-${fzf_version}-linux_arm64.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_arm64.tar.gz"
     ;;
   Linux\ *64)
-    fzf_archive="fzf-${fzf_version}-linux_amd64.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-linux_amd64.tar.gz"
     ;;
   FreeBSD\ *64)
-    fzf_archive="fzf-${fzf_version}-freebsd_amd64.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-freebsd_amd64.tar.gz"
     ;;
   OpenBSD\ *64)
-    fzf_archive="fzf-${fzf_version}-openbsd_amd64.tar.gz"
+    fzf_archive="fzf-${fzf_version##v}-openbsd_amd64.tar.gz"
     ;;
   *)
     code_red "[ERROR] OS not supported!"
@@ -67,7 +67,6 @@ case "$archi" in
 esac
 
 fzf_url="https://github.com/junegunn/fzf/releases/download/${fzf_version}/${fzf_archive}"
-
 
 # PATH CHECK
 case :$PATH: in
@@ -81,8 +80,8 @@ esac
 
 
 # VERSION CHECK
-if [ "${fzf_version}" = "${fzf_installed_version}" ]; then
-  printf '%s\n' "Installed Verision: ${fzf_installed_version}"
+if [ "${fzf_version##v}" = "${fzf_installed_version}" ]; then
+  printf '%s\n' "Installed Version: ${fzf_installed_version}"
   printf '%s\n' "Latest Version: ${fzf_version}"
   code_yel "[INFO] Already using latest version. Exiting."
   exit 0
