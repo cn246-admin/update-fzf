@@ -45,10 +45,7 @@ case "$archi" in
   Linux\ armv7*)
     fzf_archive="fzf-${fzf_version##v}-linux_armv7.tar.gz"
     ;;
-  Linux\ armv8*)
-    fzf_archive="fzf-${fzf_version##v}-linux_arm64.tar.gz"
-    ;;
-  Linux\ aarch64*)
+  Linux\ armv[8-9]* | Linux\ aarch64*)
     fzf_archive="fzf-${fzf_version##v}-linux_arm64.tar.gz"
     ;;
   Linux\ *64)
