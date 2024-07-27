@@ -31,10 +31,10 @@ code_yel () { tput setaf 3; printf '%s\n' "${1}"; tput sgr0; }
 archi=$(uname -sm)
 case "$archi" in
   Darwin\ arm64)
-    fzf_archive="fzf-${fzf_version##v}-darwin_arm64.zip"
+    fzf_archive="fzf-${fzf_version##v}-darwin_arm64.tar.gz"
     ;;
   Darwin\ x86_64)
-    fzf_archive="fzf-${fzf_version##v}-darwin_amd64.zip"
+    fzf_archive="fzf-${fzf_version##v}-darwin_amd64.tar.gz"
     ;;
   Linux\ armv5*)
     fzf_archive="fzf-${fzf_version##v}-linux_armv5.tar.gz"
