@@ -4,7 +4,12 @@
 # Author: Chuck Nemeth
 # https://github.com/junegunn/fzf
 
-# VARIABLES
+# Colored output
+code_grn() { tput setaf 2; printf '%s\n' "${1}"; tput sgr0; }
+code_red() { tput setaf 1; printf '%s\n' "${1}"; tput sgr0; }
+code_yel() { tput setaf 3; printf '%s\n' "${1}"; tput sgr0; }
+
+# Variables
 bin_dir="${HOME}/.local/bin"
 src_dir="${HOME}/.local/src"
 man_dir="${HOME}/.local/man/man1"
@@ -21,12 +26,7 @@ fi
 fzf_version="$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | \
               awk -F': ' '/tag_name/ { gsub(/\"|\,/,"",$2); print $2 }')"
 
-# colored output
-code_grn() { tput setaf 2; printf '%s\n' "${1}"; tput sgr0; }
-code_red() { tput setaf 1; printf '%s\n' "${1}"; tput sgr0; }
-code_yel() { tput setaf 3; printf '%s\n' "${1}"; tput sgr0; }
-
-# OS CHECK
+# OS check
 archi=$(uname -sm)
 case "$archi" in
   Darwin\ arm64)
@@ -64,7 +64,7 @@ esac
 
 fzf_url="https://github.com/junegunn/fzf/releases/download/${fzf_version}/${fzf_archive}"
 
-# PATH CHECK
+# PATH check
 case :$PATH: in
   *:"${bin_dir}":*)  ;;  # do nothing
   *)
@@ -74,8 +74,7 @@ case :$PATH: in
     ;;
 esac
 
-
-# VERSION CHECK
+# Version check
 if [ "${fzf_version##v}" = "${fzf_installed_version}" ]; then
   printf '%s\n' "Installed Version: ${fzf_installed_version}"
   printf '%s\n' "Latest Version: ${fzf_version}"
@@ -86,14 +85,12 @@ else
   printf '%s\n' "Latest Version: ${fzf_version}"
 fi
 
-
-# PREPARE
+# Prepare
 [ ! -d "${bin_dir}" ] && mkdir -p "${bin_dir}"
 [ ! -d "${src_dir}" ] && mkdir -p "${src_dir}"
 [ ! -d "${man_dir}" ] && mkdir -p "${man_dir}"
 
-
-# DOWNLOAD
+# Download
 cd "${src_dir}" || exit
 
 # Clone or update the repository
@@ -116,7 +113,7 @@ fi
 
 # Download and extract new binary
 printf '%s\n' "Downloading fzf binary"
-if command -v curl > /dev/null; then
+if command -v curl >/dev/null 2>&1; then
   curl -fL "${fzf_url}" | tar -xzf -
 else
   wget -O - "${fzf_url}" | tar -xzf -
@@ -131,8 +128,7 @@ ln -sf "${src_dir}/fzf/bin/fzf-tmux" "${bin_dir}"
 ln -sf "${src_dir}/fzf/man/man1/${fzf_man}" "${man_dir}"
 ln -sf "${src_dir}/fzf/man/man1/${fzf_tmux_man}" "${man_dir}"
 
-
-# VERSION CHECK
+# Version check
 code_grn "Done!"
 code_grn "Installed Version: $(fzf --version | cut -d' ' -f 1)"
 
