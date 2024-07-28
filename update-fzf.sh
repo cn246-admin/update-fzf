@@ -12,7 +12,7 @@ man_dir="${HOME}/.local/man/man1"
 fzf_man="fzf.1"
 fzf_tmux_man="fzf-tmux.1"
 
-if command -v fzf >/dev/null; then
+if command -v fzf >/dev/null 2>&1; then
   fzf_installed_version="$(fzf --version | cut -d' ' -f 1)"
 else
   fzf_installed_version="Not Installed"
